@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section>
+
+    <div class="section-header">
+        <div>
+            <h2>Pacientes</h2>
+            <p>Registro y administración de pacientes</p>
+        </div>
+    </div>
+
+    <div class="page-actions">
+        <a class="button" href="{{ url_for('patient.crear') }}">
+            Agregar paciente
+        </a>
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for paciente in pacientes %}
+
+                <tr>
+
+                    <td>{{ paciente.nombre }}</td>
+                    <td>{{ paciente.edad }}</td>
+                    <td>{{ paciente.direccion }}</td>
+                    <td>{{ paciente.telefono }}</td>
+
+                    <td class="action-links">
+
+                        <a class="table-btn history-btn"
+                           href="{{ url_for('patient.historial', patient_id=paciente.id) }}">
+                            Historial
+                        </a>
+
+                        <a class="table-btn edit-btn"
+                           href="{{ url_for('patient.editar', patient_id=paciente.id) }}">
+                            Editar
+                        </a>
+
+                        <a class="table-btn delete-btn"
+                           href="{{ url_for('patient.eliminar', patient_id=paciente.id) }}">
+                            Eliminar
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="5" class="empty-table">
+                        No hay pacientes registrados.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}

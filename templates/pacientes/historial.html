@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Historial de {{ paciente.nombre }}</h2>
+    <p><strong>Edad:</strong> {{ paciente.edad }} | <strong>Teléfono:</strong> {{ paciente.telefono }}</p>
+    <p><strong>Dirección:</strong> {{ paciente.direccion }}</p>
+    <table>
+        <thead>
+            <tr><th>Fecha</th><th>Médico</th><th>Diagnóstico</th><th>Tratamiento</th><th>Nota</th></tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+            <tr>
+                <td>{{ consulta.fecha.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ consulta.doctor.nombre }}</td>
+                <td>{{ consulta.diagnostico }}</td>
+                <td>{{ consulta.tratamiento }}</td>
+                <td>{{ consulta.nota or '-' }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">No hay consultas registradas para este paciente.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

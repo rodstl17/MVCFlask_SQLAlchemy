@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section>
+
+    <div class="section-header">
+        <div>
+            <h2>Reportes</h2>
+            <p>Resumen general de consultas médicas registradas</p>
+        </div>
+    </div>
+
+    <div class="report-stats">
+
+        <div class="mini-card">
+            <span>Total de médicos</span>
+            <strong>{{ total_doctores }}</strong>
+        </div>
+
+        <div class="mini-card">
+            <span>Total de pacientes</span>
+            <strong>{{ total_pacientes }}</strong>
+        </div>
+
+    </div>
+
+    <div class="table-actions">
+
+        <a class="button" href="{{ url_for('report.exportar') }}">
+            Exportar consultas a CSV
+        </a>
+
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Médico</th>
+                    <th>Paciente</th>
+                    <th>Diagnóstico</th>
+                    <th>Tratamiento</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for consulta in consultas %}
+
+                <tr>
+                    <td>{{ consulta.fecha.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ consulta.doctor.nombre }}</td>
+                    <td>{{ consulta.paciente.nombre }}</td>
+                    <td>{{ consulta.diagnostico }}</td>
+                    <td>{{ consulta.tratamiento }}</td>
+                    <td>{{ consulta.nota or '-' }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="6" class="empty-table">
+                        No hay consultas para reportar.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}

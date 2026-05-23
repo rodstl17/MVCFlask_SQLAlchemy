@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Editar médico</h2>
+    <form method="post" action="{{ url_for('doctor.editar', doctor_id=doctor.id) }}">
+        <label>Nombre</label>
+        <input type="text" name="nombre" value="{{ doctor.nombre }}" required />
+        <label>Especialidad</label>
+        <input type="text" name="especialidad" value="{{ doctor.especialidad }}" required />
+        <label>Teléfono</label>
+        <input type="text" name="telefono" value="{{ doctor.telefono }}" required />
+        <label>Correo</label>
+        <input type="email" name="correo" value="{{ doctor.correo }}" required />
+        <button type="submit">Actualizar</button>
+    </form>
+</section>
+{% endblock %}

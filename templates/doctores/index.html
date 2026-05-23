@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section>
+
+    <div class="section-header">
+        <div>
+            <h2>Médicos</h2>
+            <p>Gestión y administración del personal médico</p>
+        </div>
+    </div>
+
+    <div class="page-actions">
+        <a class="button" href="{{ url_for('doctor.crear') }}">
+            Agregar médico
+        </a>
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Especialidad</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for doctor in doctores %}
+
+                <tr>
+
+                    <td>{{ doctor.nombre }}</td>
+                    <td>{{ doctor.especialidad }}</td>
+                    <td>{{ doctor.telefono }}</td>
+                    <td>{{ doctor.correo }}</td>
+
+                    <td class="action-links">
+
+                        <a class="table-btn edit-btn"
+                           href="{{ url_for('doctor.editar', doctor_id=doctor.id) }}">
+                            Editar
+                        </a>
+
+                        <a class="table-btn delete-btn"
+                           href="{{ url_for('doctor.eliminar', doctor_id=doctor.id) }}">
+                            Eliminar
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="5" class="empty-table">
+                        No hay médicos registrados.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}

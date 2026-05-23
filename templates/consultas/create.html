@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Registrar consulta</h2>
+    <form method="post" action="{{ url_for('consulta.crear') }}">
+        <label>Fecha y hora</label>
+        <input type="datetime-local" name="fecha" required />
+        <label>Médico</label>
+        <select name="medico_id" required>
+            <option value="">Selecciona un médico</option>
+            {% for doctor in doctores %}
+            <option value="{{ doctor.id }}">{{ doctor.nombre }} - {{ doctor.especialidad }}</option>
+            {% endfor %}
+        </select>
+        <label>Paciente</label>
+        <select name="paciente_id" required>
+            <option value="">Selecciona un paciente</option>
+            {% for paciente in pacientes %}
+            <option value="{{ paciente.id }}">{{ paciente.nombre }}</option>
+            {% endfor %}
+        </select>
+        <label>Diagnóstico</label>
+        <textarea name="diagnostico" required></textarea>
+        <label>Tratamiento</label>
+        <textarea name="tratamiento" required></textarea>
+        <label>Nota</label>
+        <textarea name="nota"></textarea>
+        <button type="submit">Guardar</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Editar consulta</h2>
+    <form method="post" action="{{ url_for('consulta.editar', consulta_id=consulta.id) }}">
+        <label>Fecha y hora</label>
+        <input type="datetime-local" name="fecha" value="{{ consulta.fecha.strftime('%Y-%m-%dT%H:%M') }}" required />
+        <label>Médico</label>
+        <select name="medico_id" required>
+            {% for doctor in doctores %}
+            <option value="{{ doctor.id }}" {% if doctor.id == consulta.medico_id %}selected{% endif %}>{{ doctor.nombre }} - {{ doctor.especialidad }}</option>
+            {% endfor %}
+        </select>
+        <label>Paciente</label>
+        <select name="paciente_id" required>
+            {% for paciente in pacientes %}
+            <option value="{{ paciente.id }}" {% if paciente.id == consulta.paciente_id %}selected{% endif %}>{{ paciente.nombre }}</option>
+            {% endfor %}
+        </select>
+        <label>Diagnóstico</label>
+        <textarea name="diagnostico" required>{{ consulta.diagnostico }}</textarea>
+        <label>Tratamiento</label>
+        <textarea name="tratamiento" required>{{ consulta.tratamiento }}</textarea>
+        <label>Nota</label>
+        <textarea name="nota">{{ consulta.nota or '' }}</textarea>
+        <button type="submit">Actualizar</button>
+    </form>
+</section>
+{% endblock %}

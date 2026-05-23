@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión Clínica</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <header>
+        <div class="brand">Gestión Clínica</div>
+
+        <nav>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('auth.panel') }}">Inicio</a>
+                <a href="{{ url_for('doctor.index') }}">Médicos</a>
+                <a href="{{ url_for('patient.index') }}">Pacientes</a>
+                <a href="{{ url_for('consulta.index') }}">Consultas</a>
+                <a href="{{ url_for('report.index') }}">Reportes</a>
+                <a href="{{ url_for('auth.logout') }}">Salir</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">Iniciar sesión</a>
+                <a href="{{ url_for('auth.register') }}">Registrar</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="messages">
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>2026</p>
+        <span>Modelo Vista-Controlador con Flask y SQLAlchemy</span>
+    </footer>
+</body>
+</html>

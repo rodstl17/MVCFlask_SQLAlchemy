@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Editar paciente</h2>
+    <form method="post" action="{{ url_for('patient.editar', patient_id=paciente.id) }}">
+        <label>Nombre</label>
+        <input type="text" name="nombre" value="{{ paciente.nombre }}" required />
+        <label>Edad</label>
+        <input type="number" name="edad" value="{{ paciente.edad }}" min="0" required />
+        <label>Dirección</label>
+        <input type="text" name="direccion" value="{{ paciente.direccion }}" required />
+        <label>Teléfono</label>
+        <input type="text" name="telefono" value="{{ paciente.telefono }}" required />
+        <button type="submit">Actualizar</button>
+    </form>
+</section>
+{% endblock %}

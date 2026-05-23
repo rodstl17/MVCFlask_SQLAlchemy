@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Registrar paciente</h2>
+    <form method="post" action="{{ url_for('patient.crear') }}">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required />
+        <label>Edad</label>
+        <input type="number" name="edad" min="0" required />
+        <label>Dirección</label>
+        <input type="text" name="direccion" required />
+        <label>Teléfono</label>
+        <input type="text" name="telefono" required />
+        <button type="submit">Guardar</button>
+    </form>
+</section>
+{% endblock %}

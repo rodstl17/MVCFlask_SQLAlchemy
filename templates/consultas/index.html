@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section>
+
+    <div class="section-header">
+        <div>
+            <h2>Consultas</h2>
+            <p>Listado y administración de consultas médicas</p>
+        </div>
+    </div>
+
+    <div class="form-inline">
+
+        <form method="get" action="{{ url_for('consulta.index') }}">
+
+            <div>
+                <label>Filtrar por fecha</label>
+                <input type="date" name="fecha" value="{{ fecha }}" />
+            </div>
+
+            <button type="submit">Buscar</button>
+
+        </form>
+
+    </div>
+
+    <div class="page-actions">
+        <a class="button" href="{{ url_for('consulta.crear') }}">
+            Agregar consulta
+        </a>
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Médico</th>
+                    <th>Paciente</th>
+                    <th>Diagnóstico</th>
+                    <th>Tratamiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for consulta in consultas %}
+
+                <tr>
+                    <td>{{ consulta.fecha.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ consulta.doctor.nombre }}</td>
+                    <td>{{ consulta.paciente.nombre }}</td>
+                    <td>{{ consulta.diagnostico }}</td>
+                    <td>{{ consulta.tratamiento }}</td>
+
+                    <td class="action-links">
+
+                        <a class="table-btn edit-btn"
+                           href="{{ url_for('consulta.editar', consulta_id=consulta.id) }}">
+                            Editar
+                        </a>
+
+                        <a class="table-btn delete-btn"
+                           href="{{ url_for('consulta.eliminar', consulta_id=consulta.id) }}">
+                            Eliminar
+                        </a>
+
+                    </td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="6" class="empty-table">
+                        No hay consultas registradas.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}
